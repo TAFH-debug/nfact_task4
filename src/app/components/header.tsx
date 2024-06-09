@@ -1,11 +1,19 @@
-'use client'
+"use client"
 import Link from "next/link";
 import {useTheme} from "@/app/providers/theme";
 import Switchbox from "@/app/components/Switchbox";
+import {useEffect, useState} from "react";
 
 export default function Header() {
     const context = useTheme()
-    const isAuth = localStorage.getItem("token") !== null
+    const [auth, setAuth] = useState(false)
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const a = localStorage.getItem('token');
+            setAuth(a !== null);
+        }
+    }, []);
 
     return (
         <header className="bg-white shadow-sm dark:bg-black dark:text-gray-50">
@@ -16,7 +24,7 @@ export default function Header() {
                 </Link>
                 <div className="flex items-center">
                     {
-                        isAuth ? <Link href="/profile" className="flex items-center gap-2 text-black dark:text-white m-2" prefetch={false}>
+                        auth ? <Link href="/profile" className="flex items-center gap-2 text-black dark:text-white m-2" prefetch={false}>
                             <ProfileIcon className="w-8 h-8 text-black dark:text-white" />
                         </Link> : <></>
                     }
