@@ -2,14 +2,21 @@
 import Link from "next/link";
 import {useTheme} from "@/app/providers/theme";
 import Switchbox from "@/app/components/Switchbox";
+import {useEffect, useState} from "react";
+import {usePathname} from "next/navigation";
 
 export default function Header() {
     const context = useTheme()
-    let isAuth = false;
+    const path = usePathname()
+    const [auth, setAuth] = useState(false);
 
-    if (window !== undefined) {
-        isAuth = localStorage.getItem("token") !== null;
-    }
+    useEffect(() => {
+        if (window !== undefined) {
+            if (localStorage.getItem("token") !== null) {
+                setAuth(true)
+            }
+        }
+    }, [path])
 
     return (
         <header className="bg-white shadow-sm dark:bg-black dark:text-gray-50">
@@ -20,7 +27,7 @@ export default function Header() {
                 </Link>
                 <div className="flex items-center">
                     {
-                        isAuth ? <Link href="/profile" className="flex items-center gap-2 text-black dark:text-white m-2" prefetch={false}>
+                        auth ? <Link href="/profile" className="flex items-center gap-2 text-black dark:text-white m-2" prefetch={false}>
                             <ProfileIcon className="w-8 h-8 text-black dark:text-white" />
                         </Link> : <></>
                     }

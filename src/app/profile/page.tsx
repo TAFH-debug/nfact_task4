@@ -145,7 +145,7 @@ function MyPost(post: PostData) {
                 </Link>
             </div>
             <div className="flex flex-col justify-center items-center">
-                <CustomButton className="hover:text-green-500" onClick={() => {
+                <CustomButton className="hover:text-green-500 dark:hover:text-green-500" onClick={() => {
                     if (isEdit) {
                         save()
                     }
@@ -153,7 +153,7 @@ function MyPost(post: PostData) {
                 }}>{
                     isEdit ? "Save" : "Edit"
                 }</CustomButton>
-                <CustomButton className="hover:text-red-500" onClick={del}>Delete</CustomButton>
+                <CustomButton className="hover:text-red-500 dark:hover:text-red-500" onClick={del}>Delete</CustomButton>
             </div>
         </div>
     )
