@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Home({ params }: { params: any }) {
+export default function Home() {
     return (
         <main className="flex-1 text-black bg-white dark:text-white dark:bg-black min-h-screen">
             <section className="w-full pt-12 md:pt-24 lg:pt-32">

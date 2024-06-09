@@ -1,5 +1,5 @@
 'use client'
-import Post, {PostData, PostUser} from "@/app/components/post";
+import Post, {PostUser} from "@/app/components/post";
 import {useEffect, useState} from "react";
 import axiosInstance from "@/app/axiosInstance";
 
@@ -11,23 +11,24 @@ export default function PostPage() {
     const [posts, setPosts] = useState<PostUser[]>([]);
     const [size, setSize] = useState<number>(5)
 
-    async function getData() {
-        const posts = (await axiosInstance.get("/posts")).data.posts
-        const data: PostUser[] = [];
-
-        let cnt = 0;
-        for(const post of posts) {
-            if (cnt >= size) break;
-            data.push({
-                post: post,
-                user: await getUser(post.userId)
-            })
-            cnt++;
-        }
-        return data
-    }
 
     useEffect(() => {
+        async function getData() {
+            const posts = (await axiosInstance.get("/posts")).data.posts
+            const data: PostUser[] = [];
+
+            let cnt = 0;
+            for(const post of posts) {
+                if (cnt >= size) break;
+                data.push({
+                    post: post,
+                    user: await getUser(post.userId)
+                })
+                cnt++;
+            }
+            return data
+        }
+
         async function run() {
             const p = (await getData())
             setPosts(p)
