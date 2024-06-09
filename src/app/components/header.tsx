@@ -2,18 +2,9 @@
 import Link from "next/link";
 import {useTheme} from "@/app/providers/theme";
 import Switchbox from "@/app/components/Switchbox";
-import {useEffect, useState} from "react";
 
 export default function Header() {
     const context = useTheme()
-    const [auth, setAuth] = useState(false)
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const a = localStorage.getItem('token');
-            setAuth(a !== null);
-        }
-    }, []);
 
     return (
         <header className="bg-white shadow-sm dark:bg-black dark:text-gray-50">
@@ -23,11 +14,9 @@ export default function Header() {
                     <span className="text-3xl font-bold text-black dark:text-white">Medium</span>
                 </Link>
                 <div className="flex items-center">
-                    {
-                        auth ? <Link href="/profile" className="flex items-center gap-2 text-black dark:text-white m-2" prefetch={false}>
-                            <ProfileIcon className="w-8 h-8 text-black dark:text-white" />
-                        </Link> : <></>
-                    }
+                    <Link href="/profile" className="flex items-center gap-2 text-black dark:text-white m-2" prefetch={false}>
+                        <ProfileIcon className="w-8 h-8 text-black dark:text-white" />
+                    </Link>
                     <Switchbox onClick={context.toggleTheme}/>
                 </div>
             </div>
