@@ -5,6 +5,11 @@ import Switchbox from "@/app/components/Switchbox";
 
 export default function Header() {
     const context = useTheme()
+    let isAuth = false;
+
+    if (window !== undefined) {
+        isAuth = localStorage.getItem("token") !== null;
+    }
 
     return (
         <header className="bg-white shadow-sm dark:bg-black dark:text-gray-50">
@@ -14,9 +19,11 @@ export default function Header() {
                     <span className="text-3xl font-bold text-black dark:text-white">Medium</span>
                 </Link>
                 <div className="flex items-center">
-                    <Link href="/profile" className="flex items-center gap-2 text-black dark:text-white m-2" prefetch={false}>
-                        <ProfileIcon className="w-8 h-8 text-black dark:text-white" />
-                    </Link>
+                    {
+                        isAuth ? <Link href="/profile" className="flex items-center gap-2 text-black dark:text-white m-2" prefetch={false}>
+                            <ProfileIcon className="w-8 h-8 text-black dark:text-white" />
+                        </Link> : <></>
+                    }
                     <Switchbox onClick={context.toggleTheme}/>
                 </div>
             </div>
